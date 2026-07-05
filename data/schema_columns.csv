@@ -1,0 +1,6 @@
+SELECT
+    ordinal_position,
+    column_name
+FROM information_schema.columns
+WHERE table_name = 'telecom_churn'
+ORDER BY ordinal_position;

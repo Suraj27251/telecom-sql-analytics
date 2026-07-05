@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_telecom_churn
+    description: "Staging model for telecom customer churn data"
+
+    columns:
+      - name: customer_id
+        description: "Unique customer identifier"
+        tests:
+          - unique
+          - not_null
+
+      - name: monthly_charges
+        description: "Monthly subscription charge"
+        tests:
+          - not_null
+
+      - name: total_charges
+        description: "Total customer charges"
+        tests:
+          - not_null
+
+      - name: churn_label
+        description: "Customer churn status"
+        tests:
+          - accepted_values:
+                values: ['Yes', 'No']

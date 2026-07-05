@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: telecom
+    description: "Raw telecom customer churn dataset"
+    database: telecom_analytics
+    schema: public
+
+    tables:
+      - name: telecom_churn
+        description: "Raw customer churn table"
