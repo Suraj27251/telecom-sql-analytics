@@ -38,20 +38,37 @@ The platform covers the full data analytics pipeline — from schema design and 
 
 ## Architecture
 
+```mermaid
+flowchart TD
+    A["📁 CSV Dataset<br/>7,043 customers, 33 attributes"] --> B[("🐘 PostgreSQL 18.4<br/>telecom_analytics_v2")]
+    B --> C["🔍 Advanced SQL Layer<br/>194 queries, views, procedures"]
+    B --> D["🔄 dbt Transformations<br/>Staging → Intermediate → Mart"]
+    B --> E["⚡ Azure Functions REST API<br/>Python + psycopg3"]
+    C --> F["📊 Business Insights<br/>& KPIs"]
+    D --> F
+    E --> G["🖥️ React Dashboard<br/>Vite + MUI + Recharts"]
+    G --> H["📈 Interactive Visualizations<br/>6 Pages, Drill-down, Filters"]
+
+    style A fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    style B fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style C fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style D fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style E fill:#fce4ec,stroke:#c62828,stroke-width:2px
+    style G fill:#e0f7fa,stroke:#00838f,stroke-width:2px
+    style F fill:#fffde7,stroke:#f9a825,stroke-width:2px
+    style H fill:#e0f7fa,stroke:#00838f,stroke-width:2px
 ```
-                React Dashboard (Vite + MUI + Recharts)
-                              │
-                              ▼
-                Azure Functions REST API (Python)
-                              │
-                              ▼
-                   PostgreSQL Database
-                   (telecom_analytics_v2)
-                              │
-                              ▼
-              Advanced SQL Analytics Layer
-              (194 queries, views, procedures)
-```
+
+## Data Pipeline
+
+1. Raw telecom customer data imported into PostgreSQL from CSV/XLSX source files.
+2. dbt transforms raw data into **staging**, **intermediate**, and **mart** models with data quality tests.
+3. PostgreSQL powers 194 SQL queries covering aggregations, window functions, CTEs, and subqueries.
+4. Azure Functions REST API connects to PostgreSQL with parameterized queries for security.
+5. React Dashboard consumes the API with interactive filters, drill-down, and real-time status monitoring.
+6. DAX-ready data model supports Power BI integration for business stakeholders.
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed architecture documentation.
 
 ## Project Structure
 
@@ -101,6 +118,7 @@ telecom-sql-analytics/
 ├── screenshots/                        # Dashboard screenshots
 │
 ├── README.md
+├── ARCHITECTURE.md                    # Detailed architecture documentation
 ├── report.md
 ├── PORTFOLIO.md
 └── setup.md
@@ -304,6 +322,7 @@ npm run dev
 | File | Description |
 |------|-------------|
 | [README.md](README.md) | This file — project overview and documentation |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Detailed architecture documentation with diagrams |
 | [report.md](report.md) | Executive summary and findings |
 | [PORTFOLIO.md](PORTFOLIO.md) | Interview talking points |
 | [setup.md](setup.md) | Step-by-step setup guide |
